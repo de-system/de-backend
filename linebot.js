@@ -23,7 +23,7 @@ bot.on("message", function (event) {
   let userMsg = [
     {
       type: "flex",
-      altText: "de-life 限時折扣來囉！",
+      altText: "de-life 問卷折扣來囉！",
       contents: {
         type: "bubble",
         hero: {
@@ -43,7 +43,7 @@ bot.on("message", function (event) {
           contents: [
             {
               type: "text",
-              text: "de-life 限時折扣！",
+              text: "de-life 問卷折扣！",
               weight: "bold",
               size: "xl",
             },
@@ -113,7 +113,7 @@ bot.on("message", function (event) {
               action: {
                 type: "uri",
                 label: "領取折價卷",
-                uri: "https://lin.ee/JUCxHys",
+                uri: "https://lin.ee/8K551ct",
               },
             },
             {
@@ -162,8 +162,109 @@ router.post("/bot", async (req, res) => {
     if (strategy == "買一送一") {
       replyMsg = [
         {
-          type: "text",
-          text: "出示此訊息即享有買一送一 ㅠㅠ～",
+          type: "flex",
+          altText: "de-life 買一送一來囉！",
+          contents: {
+            type: "bubble",
+            hero: {
+              type: "image",
+              url:
+                "https://yahooshopping-cdn240.myguide.hk/uploads/article/871f2e4994c18d26b832762dd273667c.jpg",
+              size: "full",
+              aspectRatio: "20:13",
+              aspectMode: "cover",
+              action: {
+                type: "uri",
+                uri: "http://linecorp.com/",
+              },
+            },
+            body: {
+              type: "box",
+              layout: "vertical",
+              contents: [
+                {
+                  type: "text",
+                  text: "de-life 限時買一送一！",
+                  weight: "bold",
+                  size: "xl",
+                },
+                {
+                  type: "box",
+                  layout: "vertical",
+                  margin: "lg",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "box",
+                      layout: "baseline",
+                      spacing: "sm",
+                      contents: [
+                        {
+                          type: "text",
+                          text: "使用分櫃",
+                          color: "#aaaaaa",
+                          size: "sm",
+                          flex: 2,
+                        },
+                        {
+                          type: "text",
+                          text: "全台de專櫃皆可使用",
+                          wrap: true,
+                          color: "#666666",
+                          size: "sm",
+                          flex: 5,
+                        },
+                      ],
+                    },
+                    {
+                      type: "box",
+                      layout: "baseline",
+                      spacing: "sm",
+                      contents: [
+                        {
+                          type: "text",
+                          text: "Time",
+                          color: "#aaaaaa",
+                          size: "sm",
+                          flex: 2,
+                        },
+                        {
+                          type: "text",
+                          text: "1/7 ~ 1/31",
+                          wrap: true,
+                          color: "#666666",
+                          size: "sm",
+                          flex: 5,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            footer: {
+              type: "box",
+              layout: "vertical",
+              spacing: "sm",
+              contents: [
+                {
+                  type: "button",
+                  style: "link",
+                  height: "sm",
+                  action: {
+                    type: "uri",
+                    label: "領取買一送一",
+                    uri: "https://lin.ee/xgUfxVY",
+                  },
+                },
+                {
+                  type: "spacer",
+                  size: "sm",
+                },
+              ],
+              flex: 0,
+            },
+          },
         },
       ];
     } else if (strategy == "寄調查問卷") {
@@ -178,10 +279,108 @@ router.post("/bot", async (req, res) => {
     } else {
       replyMsg = [
         {
-          type: "image",
-          originalContentUrl:
-            "https://s.newtalk.tw/album/news/502/5fc752ad3b176.jpg",
-          previewImageUrl: "https://www.hotzbuy.com/images/41/41-05-2.jpg",
+          type: "flex",
+          altText: "de-life 限時折扣來囉！",
+          contents: {
+            type: "bubble",
+            hero: {
+              type: "image",
+              url: "https://www.hotzbuy.com/images/41/41-05-2.jpg",
+              size: "full",
+              aspectRatio: "20:13",
+              aspectMode: "cover",
+              action: {
+                type: "uri",
+                uri: "http://linecorp.com/",
+              },
+            },
+            body: {
+              type: "box",
+              layout: "vertical",
+              contents: [
+                {
+                  type: "text",
+                  text: "de-life 限時折扣！",
+                  weight: "bold",
+                  size: "xl",
+                },
+                {
+                  type: "box",
+                  layout: "vertical",
+                  margin: "lg",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "box",
+                      layout: "baseline",
+                      spacing: "sm",
+                      contents: [
+                        {
+                          type: "text",
+                          text: "使用分櫃",
+                          color: "#aaaaaa",
+                          size: "sm",
+                          flex: 2,
+                        },
+                        {
+                          type: "text",
+                          text: "全台de專櫃皆可使用",
+                          wrap: true,
+                          color: "#666666",
+                          size: "sm",
+                          flex: 5,
+                        },
+                      ],
+                    },
+                    {
+                      type: "box",
+                      layout: "baseline",
+                      spacing: "sm",
+                      contents: [
+                        {
+                          type: "text",
+                          text: "Time",
+                          color: "#aaaaaa",
+                          size: "sm",
+                          flex: 2,
+                        },
+                        {
+                          type: "text",
+                          text: "1/7 ~ 1/31",
+                          wrap: true,
+                          color: "#666666",
+                          size: "sm",
+                          flex: 5,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            footer: {
+              type: "box",
+              layout: "vertical",
+              spacing: "sm",
+              contents: [
+                {
+                  type: "button",
+                  style: "link",
+                  height: "sm",
+                  action: {
+                    type: "uri",
+                    label: "領取折價卷",
+                    uri: "https://lin.ee/JUCxHys",
+                  },
+                },
+                {
+                  type: "spacer",
+                  size: "sm",
+                },
+              ],
+              flex: 0,
+            },
+          },
         },
       ];
     }
