@@ -19,7 +19,8 @@ let bot = linebot({
 bot.on("message", function (event) {
   // event.message.text是使用者傳給bot的訊息
   // 使用event.reply(要回傳的訊息)方法可將訊息回傳給使用
-  //let userMsg = `你剛剛說 ${event.message.text} ${event.source.userId}`;
+  console.log(`你剛剛說 ${event.message.text} ${event.source.userId}`);
+  //event.reply(`你剛剛說 ${event.message.text} 謝謝救救子琪`);
   let userMsg = [
     {
       type: "flex",
@@ -126,7 +127,11 @@ bot.on("message", function (event) {
       },
     },
   ];
-  if (event.message.text == "ok") {
+  if (
+    event.message.text == "ok" ||
+    event.message.text == "OK" ||
+    event.message.text == "Ok"
+  ) {
     event
       .reply(userMsg)
       .then(function (data) {
