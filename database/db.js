@@ -7,7 +7,8 @@ var pool = mysql.createPool({
     password: 'x7gxmcyadjijm84r',
     database: 'lkuckwgxzsncnhvw',
     waitForConnections: true,
-    multipleStatements: true
+    multipleStatements: true,
+    timezone: 'utc' //<-- here
 });
 
 module.exports = pool;
