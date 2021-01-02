@@ -274,6 +274,10 @@ router.post("/bot", async (req, res) => {
       ];
     } else if (strategy == "寄調查問卷") {
       replyMsg = [
+        // {
+        //   type: "text",
+        //   text: "在嗎？ ",
+        // },
         {
           type: "text",
           text:
@@ -390,7 +394,7 @@ router.post("/bot", async (req, res) => {
       ];
     }
 
-    const users = ["Udfde9af28953a58a7e5dfa54f1ae661b"];
+    const users = ["U134be760ea840fd167864707a0378ceb"];
     bot.multicast(users, replyMsg);
   });
 });

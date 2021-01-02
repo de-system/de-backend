@@ -5,6 +5,11 @@ const auth = require("./auth");
 const cost = require("./cost");
 const linebot = require("./linebot");
 const getLineCus = require("./getLineCus");
+const counter = require("./counter");
+const update = require("./updateCounter");
+const inventoryManage = require("./inventoryManage");
+//const forecast = require("./forecast");
+const age = require("./age");
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -15,6 +20,11 @@ app.use("/auth", auth);
 app.use("/cost", cost);
 app.use("/linebot", linebot);
 app.use("/getLineCus", getLineCus);
+app.use("/counter", counter);
+app.use("/updateCounter", update);
+app.use("/inventoryManage", inventoryManage);
+//app.use("/forecast", forecast);
+app.use("/age", age);
 
 app.listen(3030, function () {
   console.log("it works yooyoyoy");
