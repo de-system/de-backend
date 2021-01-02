@@ -394,7 +394,7 @@ router.post("/bot", async (req, res) => {
       ];
     }
 
-    const users = ["U134be760ea840fd167864707a0378ceb"];
+    const users = ["Udfde9af28953a58a7e5dfa54f1ae661b"];
     bot.multicast(users, replyMsg);
   });
 });

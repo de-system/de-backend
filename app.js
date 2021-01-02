@@ -10,6 +10,7 @@ const update = require("./updateCounter");
 const inventoryManage = require("./inventoryManage");
 //const forecast = require("./forecast");
 const age = require("./age");
+const rfm = require("./rfm");
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -23,6 +24,7 @@ app.use("/getLineCus", getLineCus);
 app.use("/counter", counter);
 app.use("/updateCounter", update);
 app.use("/inventoryManage", inventoryManage);
+app.use("/rfm", rfm);
 //app.use("/forecast", forecast);
 app.use("/age", age);
 
