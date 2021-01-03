@@ -142,34 +142,39 @@ router.get("/info", async (req, res) => {
     });
 });
 
-const findIndex = "SELECT count(distinct customerId) as cmount ,month(time) as month FROM transaction group by month(time);";
+const findCustomer = "SET @t = 7;SELECT count(distinct customerId) as amount ,month(time) as month , IF(month(time)=7, @t:= month(time) , @t := month(time)-1) as q FROM transaction where customerId IN (select distinct customerId from transaction where month(time)=@t) group by month(time) ;";
+const findIndex = "SELECT count(distinct customerId) as cAmount ,month(time) as month FROM transaction group by month(time);";
 router.get("/customerIndex", async (req, res) => {
-    db.query(findIndex, (err, result) => {
+    let cAmountArray = []; // array for 每期的顧客數
+    let rArray = []; // array for retentionRate 
+    let defectionArray = []; //array for defectionRate 
+    let surviveArray = []; // array for  surviveRate
+    let totalArray = [];
+    await db.query(findIndex, (err, result) => {
         if (err) throw err;
-        let cmountArray = [];
-        let defectionArray = [];
-        let surviveArray = [];
-        let totalArray = [];
         for (let i = 0; i < result.length; i++) {
             if (i === 0) {
-                cmountArray.push((27 / 50).toFixed(2));
+                cAmountArray.push(27);
+                rArray.push((27 / 50).toFixed(2));
                 defectionArray.push((1 - 27 / 50).toFixed(2));
                 surviveArray.push((27 / 50).toFixed(2));
             } else {
-                cmountArray.push((result[i].cmount / result[i - 1].cmount).toFixed(2));
-                defectionArray.push((1 - result[i].cmount / result[i - 1].cmount).toFixed(2));
-                surviveArray.push((surviveArray[i - 1] * (result[i].cmount / result[i - 1].cmount)).toFixed(2));
+                cAmountArray.push(result[i].cAmount);
             }
-            //不要百分比的話就拿掉 * 100 + "%" (๑•̀ㅂ•́)و✧
-            totalArray.push({ month: result[i].month, restetionRate: cmountArray[i] * 100 + "%", defectionRate: defectionArray[i] * 100 + "%", surviveRate: surviveArray[i] * 100 + "%" })
-
         }
-
-        res.send(totalArray);
-        // console.log(cmountArray)
-        // console.log(defectionArray)
-        // console.log(surviveArray)
-        // console.log(totalArray)
+        db.query(findCustomer, (err, result) => {
+            if (err) throw err;
+            for (let i = 0; i < result[1].length; i++) {
+                if (i != 0) {
+                    rArray.push((result[1][i].amount / cAmountArray[i - 1]).toFixed(2));
+                    defectionArray.push((1 - rArray[i]).toFixed(2));
+                    surviveArray.push((surviveArray[i - 1] * rArray[i]).toFixed(2));
+                }
+                //不要百分比的話就拿掉 * 100 + "%" (๑•̀ㅂ•́)و✧
+                totalArray.push({ month: result[1][i].month, retetionRate: rArray[i] * 100 + "%", defectionRate: defectionArray[i] * 100 + "%", surviveRate: Math.floor(surviveArray[i] * 100) + "%" });
+            }
+            res.send(totalArray);
+        });
     });
 });
 
