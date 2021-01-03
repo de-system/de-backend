@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+var mysql = require("mysql");
 //datebase config
 var pool = mysql.createPool({
     connectionLimit: 10,
