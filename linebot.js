@@ -394,7 +394,12 @@ router.post("/bot", async (req, res) => {
       ];
     }
 
-    const users = ["Udfde9af28953a58a7e5dfa54f1ae661b"];
+    const users = [
+      "Udfde9af28953a58a7e5dfa54f1ae661b",
+      "U134be760ea840fd167864707a0378ceb",
+      "U44849531f86a6a8d797020db855722ef",
+      "U48c46f60d55599483857e900915d8566",
+    ];
     bot.multicast(users, replyMsg);
   });
 });

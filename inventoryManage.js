@@ -86,7 +86,7 @@ const checkROPandEOQ = async () => {
         receiveDate: receiveDate,
         EOQf: calculateEOQ()[0],
         EOQa: calculateEOQ()[1],
-        cost: (calculateEOQ()[0] + calculateEOQ()[1]) * 1.2,
+        cost: (calculateEOQ()[0] + calculateEOQ()[1]) * 50, //一單位 purcahse cost = 50
       });
     }
   }

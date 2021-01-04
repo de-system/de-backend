@@ -6,7 +6,7 @@ router.use(cors());
 router.use(express.json());
 
 const findR =
-  "select  transaction.customerId,customer.name,customer.lineId , customer.age,customer.responseRate from transaction,customer where customer.customerId=transaction.customerId order by time desc limit 10";
+  "select  transaction.customerId,customer.name,customer.age,customer.lineId, max(transaction.time) as lastTime ,year(max(transaction.time)) as year,month(max(transaction.time)) as month,day(max(transaction.time)) as day ,customer.responseRate from transaction,customer where customer.customerId=transaction.customerId group by customerId order by lastTime  desc;";
 router.post("/R", async (req, res) => {
   await db.query(findR, (err, result) => {
     if (err) throw err;
@@ -14,12 +14,14 @@ router.post("/R", async (req, res) => {
     let name = [];
     let lineId = [];
     let age = [];
+    let time = [];
     let responseRate = [];
     for (let i = 0; i < result.length; i++) {
       customerId.push(result[i].customerId);
       name.push(result[i].name);
       lineId.push(result[i].lineId);
       age.push(result[i].age);
+      time.push(result[i].year + "/" + result[i].month + "/" + result[i].day);
       responseRate.push(result[i].responseRate);
     }
     let bi = 0;
@@ -43,6 +45,7 @@ router.post("/R", async (req, res) => {
       name: name,
       lineId: lineId,
       age: age,
+      time: time,
       st1: st1,
       st_bi1: st_bi1,
       st2: st2,
@@ -142,7 +145,7 @@ router.post("/M", async (req, res) => {
 });
 
 const survivalRate =
-  "select  transaction.customerId,customer.name,customer.lineId,max(transaction.time) as lastTime from transaction,customer where customer.customerId=transaction.customerId group by customerId order by lastTime  asc ";
+  "select  transaction.customerId,customer.name,customer.lineId,max(transaction.time) as lastTime ,year(max(transaction.time)) as year,month(max(transaction.time)) as month,day(max(transaction.time)) as day from transaction,customer where customer.customerId=transaction.customerId group by customerId order by lastTime  asc";
 router.post("/survivalRate", async (req, res) => {
   //console.log();
   await db.query(survivalRate, (err, result) => {
@@ -155,7 +158,9 @@ router.post("/survivalRate", async (req, res) => {
       customerId.push(result[i].customerId);
       name.push(result[i].name);
       lineId.push(result[i].lineId);
-      lastTime.push(result[i].lastTime);
+      lastTime.push(
+        result[i].year + "/" + result[i].month + "/" + result[i].day
+      );
     }
 
     //console.log();
