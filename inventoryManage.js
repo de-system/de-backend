@@ -1,4 +1,3 @@
-
 var express = require("express");
 const cors = require("cors");
 const db = require("./database/db");
