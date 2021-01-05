@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+var mysql = require("mysql");
 //datebase config
 var pool = mysql.createPool({
     connectionLimit: 10,
@@ -7,7 +7,8 @@ var pool = mysql.createPool({
     password: 'x7gxmcyadjijm84r',
     database: 'lkuckwgxzsncnhvw',
     waitForConnections: true,
-    multipleStatements: true
+    multipleStatements: true,
+    timezone: 'utc' //<-- here
 });
 
 module.exports = pool;
