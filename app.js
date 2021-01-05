@@ -34,7 +34,7 @@ app.use("/age", age);
 
 app.use("/inventoryManage", inventoryManage);
 
-app.listen(3030, function () {
+app.listen(process.env.PORT || 3030, function () {
   console.log("it works yooyoyoy");
 });
 
