@@ -8,7 +8,6 @@ router.use(express.json());
 
 //總收入
 const findRate = "select customerid ,MONTH(max(time)) as t,MONTH(min(time)) as h from transaction  group by customerid order by t asc;"
-
 router.get("/surRate", async (req, res) => {
     console.log(req.body.strategyId);
     db.query(findRate, (err, result) => {
@@ -112,38 +111,16 @@ router.get("/surRate", async (req, res) => {
 
 //總收入
 const findRev =
-    "SELECT  MONTH(time) AS month,SUM(payment) AS payment,SUM(amount) AS amount,SUM(amount)*300 AS cost,SUM(amount)*700 AS net FROM transaction GROUP BY MONTH(time)"
-
+    "SELECT  MONTH(time) AS month,SUM(payment) AS payment,SUM(amount) AS amount,SUM(amount)*300 AS cost,SUM(amount)*700 AS net FROM transaction GROUP BY YEAR(time),MONTH(time)"
 router.get("/info", async (req, res) => {
     db.query(findRev, (err, result) => {
         if (err) throw err;
-
-        // let rev = 0;
-        // let amount = 0;
-        // let cost = 0;
-        // let net = 0;
-
-        // for (let i = 0; i < result.length; i++) {
-
-        //     rev = rev + result[i].payment;
-        //     amount = amount + result[i].amount;
-        //     cost = amount * 300;
-        //     net = rev - cost;
-
-        // }
-        // console.log(rev);
-        // console.log(amount);
-        // console.log(cost);
-        // console.log(net);
-
-        // console.log(cost);
-
         res.send(result);
     });
 });
 
-const findCustomer = "SET @t = 7;SELECT count(distinct customerId) as amount ,month(time) as month , IF(month(time)=7, @t:= month(time) , @t := month(time)-1) as q FROM transaction where customerId IN (select distinct customerId from transaction where month(time)=@t) group by month(time) ;";
-const findIndex = "SELECT count(distinct customerId) as cAmount ,month(time) as month FROM transaction group by month(time);";
+const findCustomer = "SET @t = 7;SELECT count(distinct customerId) as amount ,month(time) as month , IF(month(time)=1, @t:= 12 , IF(month(time)=7, @t:= month(time) , @t := month(time)-1)) as q FROM transaction where customerId IN (select distinct customerId from transaction where month(time)=@t) group by year(time), month(time) ;";
+const findIndex = "SELECT count(distinct customerId) as cAmount ,month(time) as month FROM transaction group by year(time),month(time);";
 router.get("/customerIndex", async (req, res) => {
     let cAmountArray = []; // array for 每期的顧客數
     let rArray = []; // array for retentionRate 

@@ -23,7 +23,6 @@ const calculateROP = () => {
     let ROP = Math.ceil(((100 * 7) / 31) * 1 + 1.88 * Math.sqrt(1) * 5);
     return ROP;
 };
-
 // get transaction info
 const getTransaction = "SELECT amount, time FROM transaction ";
 const transaction = () => {
